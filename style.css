@@ -14,6 +14,7 @@ a:hover,a:focus{border-bottom:1px solid #334648;color:#334648;}
 a:active,input[type=submit]:active{position:relative;bottom:-1px;}
 p{margin:0 0 10px;}
 small{font-size:12px;}
+span.small{font-size: 6px;margin-left: 1em;font-style: italic;}
 div{margin:0 auto;width:100%;text-align:left;background:#eee;width:340px;padding:5px 20px 20px;}
 div#footer{margin-top:10px;background:none;text-align:center;padding:0;color:#DDD;font-size:10px;font-weight:100;letter-spacing:1px;text-shadow:0 1px 0 #314446;text-transform:uppercase;}
 div#footer a{color:#ddd;border:none;}
@@ -31,7 +32,8 @@ a.last{margin-left:20px;}
 input[type=text],input[type=password]{border:1px solid #B4BABB;font-family:Helvetica;font-size:13px;padding:5px;width:328px;}
 input.half {width:156px;}
 input[type=text]:focus,input[type=password]:focus{border:1px solid #143C3F;}
-input[type=submit]{background:none repeat scroll 0 0 #143C3F;border:1px solid #143C3F;color:#FFF;font-family:Helvetica;font-size:13px;padding:5px;cursor:pointer;margin:0px auto;}
+input[type=submit]{background:none repeat scroll 0 0 #143C3F;border:1px solid #143C3F;color:#FFF;font-family:Helvetica;font-size:13px;padding:5px;cursor:pointer;}
+div#submit{width: 88px;margin: 0 auto;}
 label{display:block}
 div ul{border-bottom:2px solid #143C3F;margin-bottom:10px;}
 ul li a{display:block;float:left;background:#B4BABB;color:#fff!important;border:none!important;padding:2px 10px;text-align:center;width:150px;}
