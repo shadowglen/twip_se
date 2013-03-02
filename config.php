@@ -1,9 +1,0 @@
-<?php
-define('OAUTH_KEY','tPbi2iGpzeAprDALOul2HA');
-define('OAUTH_SECRET','UPfDGCJ3tKqwv4kvzas9ZKJEsonNQS7hkbusvuJzQc');
-define('BASE_URL','https://tl.shadowglen.co/');
-define('API_VERSION','1.1');
-define('DEBUG',FALSE);
-define('DOLOG',FALSE);
-define('COMPRESS',FALSE);
-?>
