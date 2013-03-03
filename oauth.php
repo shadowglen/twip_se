@@ -50,16 +50,18 @@ if (isset($_GET['oauth_token']) && isset($_GET['oauth_verifier'])) {
     $access_token['userapikey'] = $_SESSION['userapikey'];
     $access_token['userapisecret'] = $_SESSION['userapisecret'];
     if ($connection->http_code == 200) {
-        $allowed_uids = file("allowed_uids");
-        for ($i = 0; $i < count($allowed_uids); $i++) {
-            $allowed_uids[$i] = rtrim($allowed_uids[$i]);
-        }
-        if (!in_array($access_token['user_id'], $allowed_uids)) {
-            header('HTTP/1.1 401 Unauthorized');
-            header('WWW-Authenticate: Basic realm="Twip4 Override Mode"');
-            echo 'This user is not allowed to use the api proxy.' . "\n";
-            exit();
-        }
+        if (INVITEMODE) {
+		$allowed_uids = file("allowed_uids");
+        	for ($i = 0; $i < count($allowed_uids); $i++) {
+            		$allowed_uids[$i] = rtrim($allowed_uids[$i]);
+        	}
+        	if (!in_array($access_token['user_id'], $allowed_uids)) {
+            		header('HTTP/1.1 401 Unauthorized');
+            		header('WWW-Authenticate: Basic realm="Twip4 Override Mode"');
+            		echo 'This user is not allowed to use the api proxy.' . "\n";
+            		exit();
+        	}
+	}
 
         $old_tokens = glob('oauth/*.' . $access_token['user_id']);
         if (!empty($old_tokens)) {
