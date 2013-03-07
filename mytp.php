@@ -3,7 +3,6 @@ require('include/twitteroauth.php');
 require('image_proxy.php');
 class twip{
     const PARENT_API = 'https://api.twitter.com/';
-    const PARENT_SEARCH_API = 'http://search.twitter.com/';
     const ERR_LOGFILE = 'err.txt';
     const LOGFILE = 'log.txt';
     const LOGTIMEZONE = 'Etc/GMT-8';
@@ -112,7 +111,6 @@ class twip{
     private function parse_variables($options){
         //parse options
         $this->parent_api = isset($options['parent_api']) ? $options['parent_api'] : self::PARENT_API;
-        $this->parent_search_api = isset($options['parent_search_api']) ? $options['parent_search_api'] : self::PARENT_SEARCH_API;
         $this->api_version = isset($options['api_version']) ? $options['api_version'] : self::API_VERSION;
         $this->debug = isset($options['debug']) ? !!$options['debug'] : FALSE;
         $this->dolog = isset($options['dolog']) ? !!$options['dolog'] : FALSE;
@@ -121,7 +119,6 @@ class twip{
         $this->oauth_secret = $options['oauth_secret'];
 
         if(substr($this->parent_api, -1) !== '/') $this->parent_api .= '/';
-        if(substr($this->parent_search_api, -1) !== '/') $this->parent_search_api .= '/';
 
         $this->base_url = isset($options['base_url']) ? trim($options['base_url'],'/').'/' : self::BASE_URL;
         if(preg_match('/^https?:\/\//i',$this->base_url) == 0){
@@ -207,24 +204,16 @@ class twip{
         $replacement = array(
             'pc=true' => 'pc=false', //change pc=true to pc=false
             '&earned=true' => '', //remove "&earned=true"
-            '/1.1/mentions.json' => '/1.1/mentions_timeline.json', //backward compat for API 1.0
-            'i/search.json' => 'search.json', //fix search issue on twitter for iPhone
         );
 
         $api = str_replace(array_keys($replacement), array_values($replacement), $api);
 
-
-        if((strpos($api,'search.') === 0)){
-            $this->request_uri = sprintf("%s%s", $this->parent_search_api, $api);
-        }
-        else{
-            if( strpos($api,'oauth/') === 0
-                || strpos($api, 'i/') === 0 ){
-                // These API requests don't needs version string
-                $this->request_uri = sprintf("%s%s", $this->parent_api, $api);
-            }else{
-                $this->request_uri = sprintf("%s%s/%s", $this->parent_api, $version, $api);
-            }
+        if( strpos($api,'oauth/') === 0
+            || strpos($api, 'i/') === 0 ){
+            // These API requests don't needs version string
+            $this->request_uri = sprintf("%s%s", $this->parent_api, $api);
+        }else{
+            $this->request_uri = sprintf("%s%s/%s", $this->parent_api, $version, $api);
         }
     }
 
